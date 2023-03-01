@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <input type="text" id="pregunta" placeholder="Haz una pregunta...">
+    <button id="enviar">Enviar</button>
+    <div id="respuesta"></div>
+    <script>
+      $(document).ready(function() {
+        $('#enviar').click(function() {
+          var pregunta = $('#pregunta').val();
+          $.ajax({
+            type: 'POST',
+            url: '/chatbot',
+            data: JSON.stringify({'pregunta': pregunta}),
+            contentType: 'application/json',
+            success: function(data) {
+              $('#respuesta').text(data.respuesta);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
